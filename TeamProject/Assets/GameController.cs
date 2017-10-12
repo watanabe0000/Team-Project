@@ -15,8 +15,7 @@ public class GameController : MonoBehaviour
     public Vector2 GetTouchStartPos()
     {
         //スクリーン座標→ワールド座標
-        var WorldPos = Camera.main.ScreenToWorldPoint(new Vector2(Input.mousePosition.x,
-                                                                    Input.mousePosition.y));
+        var WorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         return WorldPos;
     }
@@ -40,7 +39,8 @@ public class GameController : MonoBehaviour
         {
             _touchStartPos = GetTouchStartPos();
 
-            Instantiate(_Arrow, new Vector2(_touchStartPos.x, _line.transform.position.y), Quaternion.identity);
+            if(_touchStartPos.y >_line.transform.position.y)
+                Instantiate(_Arrow, new Vector2(_touchStartPos.x, _line.transform.position.y + _Arrow.transform.localScale.y/4), Quaternion.identity);
         }
     }
 }

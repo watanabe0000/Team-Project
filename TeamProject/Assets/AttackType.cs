@@ -35,6 +35,6 @@ public class AttackType : MonoBehaviour {
 
     public void Oil()
     {
-        Instantiate(_Oil, new Vector2(0, _line.transform.position.y + 0.25f), Quaternion.identity);
+        Instantiate(_Oil, new Vector2(0, _line.transform.position.y), Quaternion.identity);
     }
 }
