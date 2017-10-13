@@ -6,6 +6,8 @@ public class EnemySpawner : MonoBehaviour {
 
     [SerializeField]
     private GameObject enemy1;
+    [SerializeField]
+    private float x, y;
 
     private float timeOut;
     private float timeElapsed;
@@ -29,7 +31,7 @@ public class EnemySpawner : MonoBehaviour {
         }
 
         var obj = Instantiate(_obj, _obj.transform.position, _obj.transform.rotation);
-        obj.transform.position = new Vector2(Random.value * 30 - 15, Random.value * 10 + 30);
+        obj.transform.position = new Vector2(Random.value * x - x/2, Random.value * 2 + y);
         obj.transform.RotateAround(Vector3.zero, new Vector3(0, 0, 1), -degree);
     }
 
