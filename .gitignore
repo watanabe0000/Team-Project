@@ -24,6 +24,8 @@ ExportedObj/
 *.pdb
 *.meta
 .vs/
+Library/
+Temp/
 
 
 # Unity3D generated meta files
