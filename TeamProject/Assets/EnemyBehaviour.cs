@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EnemyBehaviour : MonoBehaviour {
 
+    class EnemyBase { }
+
 	void Start () {
 		
 	}
