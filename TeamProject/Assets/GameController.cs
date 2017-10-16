@@ -6,9 +6,9 @@ public class GameController : MonoBehaviour
 {
 
     private GameObject _Arrow;
-
-    [SerializeField]
-    private GameObject _line;
+    private GameObject _Mark;
+    
+    public GameObject _line;
 
     private Vector2 _touchStartPos;
 
@@ -20,16 +20,10 @@ public class GameController : MonoBehaviour
         return WorldPos;
     }
 
-    private Vector2 _startPos;
-
-    public Vector2 GetStartPos()
-    {
-        return _startPos;
-    }
-
     void Start()
     {
         _Arrow = Resources.Load<GameObject>("Arrow");
+        _Mark = Resources.Load<GameObject>("Mark");
     }
 
     void Update()
@@ -39,8 +33,10 @@ public class GameController : MonoBehaviour
         {
             _touchStartPos = GetTouchStartPos();
 
-            if(_touchStartPos.y >_line.transform.position.y)
-                Instantiate(_Arrow, new Vector2(_touchStartPos.x, _line.transform.position.y + _Arrow.transform.localScale.y/4), Quaternion.identity);
+            if (_touchStartPos.y > _line.transform.position.y)
+                //Instantiate(_Arrow, new Vector2(_touchStartPos.x, _line.transform.position.y + _Arrow.transform.localScale.y/4), Quaternion.identity);
+
+                Instantiate(_Mark, _touchStartPos, Quaternion.identity);
         }
     }
 }
