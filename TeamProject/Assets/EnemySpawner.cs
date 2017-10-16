@@ -7,10 +7,16 @@ public class EnemySpawner : MonoBehaviour {
     [SerializeField]
     private GameObject enemy1;
     [SerializeField]
+    private GameObject enemy2;
+    [SerializeField]
+    private GameObject enemy3;
+
+    [SerializeField]
     private float x, y;
 
-    private float timeOut;
     private float timeElapsed;
+    private float spawnTime;
+    private int repeatTimes;
     
     enum Dir {
         NORTH = 0,
@@ -36,18 +42,25 @@ public class EnemySpawner : MonoBehaviour {
     }
 
 	void Start () {
-        timeOut = 2f;
+        spawnTime = 2f;
 	}
 	
 	void Update () {
         timeElapsed += Time.deltaTime;
 
-        if (timeElapsed >= timeOut) {
+        if (timeElapsed >= spawnTime) {
             Dir direction = (Dir)Random.Range(0, 4);
 
-            CreateEnemy(enemy1, direction);
+            if (repeatTimes % 15 == 0)
+                CreateEnemy(enemy3, direction);
+            else if(repeatTimes % 10 == 0)
+                CreateEnemy(enemy2, direction);
+            else
+                CreateEnemy(enemy1, direction);
+
 
             timeElapsed = 0.0f;
+            ++repeatTimes;
         }
 	}
 }
