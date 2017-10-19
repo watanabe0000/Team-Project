@@ -1,18 +1,35 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
+    [SerializeField]
+    private GameObject _line;
+
+    [SerializeField]
+    private float _delayTime;
 
     private GameObject _Arrow;
-    private GameObject _Mark;
-    
-    public GameObject _line;
+    private GameObject _Thrower;
 
-    private Vector2 _touchStartPos;
+    public Vector2 _startPos;
 
-    public Vector2 GetTouchStartPos()
+    [SerializeField]
+    private GameObject _AttackType;
+
+    private AttackType _Type;
+
+    // UI
+    [SerializeField]
+    private Slider _arrowSlider;
+
+    [SerializeField]
+    private Slider _throwerSlider;
+
+
+    public Vector2 MousePos()
     {
         //スクリーン座標→ワールド座標
         var WorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -23,20 +40,33 @@ public class GameController : MonoBehaviour
     void Start()
     {
         _Arrow = Resources.Load<GameObject>("Arrow");
-        _Mark = Resources.Load<GameObject>("Mark");
+        _Thrower = Resources.Load<GameObject>("Thrower");
+
+        _Type = _AttackType.GetComponent<AttackType>();
     }
 
     void Update()
     {
-        // 矢出現
-        if (Input.GetButtonDown("Fire1"))
+        _arrowSlider.value += Time.deltaTime;
+        _throwerSlider.value += Time.deltaTime;
+
+        if (Input.GetButtonDown("Fire1") && MousePos().y > _line.transform.position.y)
         {
-            _touchStartPos = GetTouchStartPos();
+            // 矢出現
+            if (_Type._type == 0 && _arrowSlider.maxValue <= _arrowSlider.value)
+            {
+                _arrowSlider.value = 0;
+                Instantiate(_Arrow, new Vector2(MousePos().x, _line.transform.position.y + _Arrow.transform.localScale.y / 4), Quaternion.identity);
+            }
+            // 投石器出現
+            else if (_Type._type == 1 && _throwerSlider.maxValue <= _throwerSlider.value)
+            {
+                _throwerSlider.value = 0;
+                _startPos = MousePos();
 
-            if (_touchStartPos.y > _line.transform.position.y)
-                //Instantiate(_Arrow, new Vector2(_touchStartPos.x, _line.transform.position.y + _Arrow.transform.localScale.y/4), Quaternion.identity);
-
-                Instantiate(_Mark, _touchStartPos, Quaternion.identity);
+                Instantiate(_Thrower, new Vector2(MousePos().x, _line.transform.position.y + _Thrower.transform.localScale.y / 4), Quaternion.identity);
+                
+            }
         }
     }
 }

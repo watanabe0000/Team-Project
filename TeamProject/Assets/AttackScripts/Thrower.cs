@@ -3,22 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Thrower : MonoBehaviour {
-    [SerializeField]
-    private GameObject _gameController;
-
-    private GameController _controller;
-
     private Vector2 _arrivalPos;
 
     [SerializeField]
     private float _speed;
 
+    [SerializeField]
+    private GameObject _gameController;
+
+    private GameController _controller;
 
     void Start()
     {
         _controller = _gameController.GetComponent<GameController>();
 
-        _arrivalPos = _controller.GetTouchStartPos();
+        _arrivalPos = _controller.MousePos();
+        Debug.Log(_controller._startPos);
     }
 
 
@@ -31,4 +31,6 @@ public class Thrower : MonoBehaviour {
             Destroy(gameObject);
         }
     }
+
+   
 }
