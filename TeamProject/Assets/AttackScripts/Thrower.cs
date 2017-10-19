@@ -18,7 +18,6 @@ public class Thrower : MonoBehaviour {
         _controller = _gameController.GetComponent<GameController>();
 
         _arrivalPos = _controller.MousePos();
-        Debug.Log(_controller._startPos);
     }
 
 

@@ -14,11 +14,8 @@ public class GameController : MonoBehaviour
     private GameObject _Arrow;
     private GameObject _Thrower;
 
-    public Vector2 _startPos;
-
     [SerializeField]
     private GameObject _AttackType;
-
     private AttackType _Type;
 
     // UI
@@ -55,18 +52,20 @@ public class GameController : MonoBehaviour
             // 矢出現
             if (_Type._type == 0 && _arrowSlider.maxValue <= _arrowSlider.value)
             {
-                _arrowSlider.value = 0;
-                Instantiate(_Arrow, new Vector2(MousePos().x, _line.transform.position.y + _Arrow.transform.localScale.y / 4), Quaternion.identity);
+                Type(_Arrow, _arrowSlider);
             }
             // 投石器出現
             else if (_Type._type == 1 && _throwerSlider.maxValue <= _throwerSlider.value)
             {
-                _throwerSlider.value = 0;
-                _startPos = MousePos();
-
-                Instantiate(_Thrower, new Vector2(MousePos().x, _line.transform.position.y + _Thrower.transform.localScale.y / 4), Quaternion.identity);
-                
+                Type(_Thrower, _throwerSlider);
             }
         }
+    }
+
+    void Type(GameObject obj, Slider slider)
+    {
+        slider.value = 0;
+
+        Instantiate(obj, new Vector2(MousePos().x, _line.transform.position.y + obj.transform.localScale.y / 4), Quaternion.identity);
     }
 }
