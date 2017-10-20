@@ -2,11 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBehaviour : MonoBehaviour {
-
-    class EnemyBase {
-        int hp;
-    }
+public class BehavioursOfEnemy01 : MonoBehaviour {
 
 	void Start () {
 		
