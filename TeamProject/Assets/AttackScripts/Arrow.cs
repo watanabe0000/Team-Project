@@ -17,7 +17,7 @@ public class Arrow : MonoBehaviour {
 	void Start () {
         _controller = _gameController.GetComponent<GameController>();
 
-        _arrivalPos = _controller.GetTouchStartPos();
+        _arrivalPos = _controller.MousePos();
 	}
 	
 
