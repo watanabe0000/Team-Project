@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,6 +19,8 @@ public class GameController : MonoBehaviour
     private GameObject _AttackType;
     private AttackType _Type;
 
+    public Vector3 _aaa;
+
     // UI
     [SerializeField]
     private Slider _arrowSlider;
@@ -25,8 +28,7 @@ public class GameController : MonoBehaviour
     [SerializeField]
     private Slider _throwerSlider;
 
-
-    public Vector2 MousePos()
+    public Vector3 MousePos()
     {
         //スクリーン座標→ワールド座標
         var WorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -42,30 +44,47 @@ public class GameController : MonoBehaviour
         _Type = _AttackType.GetComponent<AttackType>();
     }
 
+
+    //if (Input.GetButtonDown("Fire1") && MousePos().y > _line.transform.position.y)
+
     void Update()
     {
         _arrowSlider.value += Time.deltaTime;
         _throwerSlider.value += Time.deltaTime;
 
-        if (Input.GetButtonDown("Fire1") && MousePos().y > _line.transform.position.y)
+        if (Input.GetButtonDown("Fire1"))
         {
-            // 矢出現
-            if (_Type._type == 0 && _arrowSlider.maxValue <= _arrowSlider.value)
+            _aaa = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+            if (_aaa.y > _line.transform.position.y)
             {
-                Type(_Arrow, _arrowSlider);
-            }
-            // 投石器出現
-            else if (_Type._type == 1 && _throwerSlider.maxValue <= _throwerSlider.value)
-            {
-                Type(_Thrower, _throwerSlider);
+                // 矢出現
+                if (_Type._type == 0 && _arrowSlider.maxValue <= _arrowSlider.value)
+                {
+                    Type(_Arrow, _arrowSlider);
+                }
+                // 投石器出現
+                else if (_Type._type == 1 && _throwerSlider.maxValue <= _throwerSlider.value)
+                {
+                    StartCoroutine(DelayMethod(1.0f));
+                    //_aaa = MousePos();
+                    //Type(_Thrower, _throwerSlider);
+                }
             }
         }
+
+    }
+
+    private IEnumerator DelayMethod(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        Type(_Thrower, _throwerSlider);
     }
 
     void Type(GameObject obj, Slider slider)
     {
         slider.value = 0;
 
-        Instantiate(obj, new Vector2(MousePos().x, _line.transform.position.y + obj.transform.localScale.y / 4), Quaternion.identity);
+        Instantiate(obj, new Vector2(_aaa.x, _line.transform.position.y + obj.transform.localScale.y / 4), Quaternion.identity);
     }
 }

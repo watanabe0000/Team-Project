@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Thrower : MonoBehaviour {
-    private Vector2 _arrivalPos;
+    private Vector3 _arrivalPos;
 
     [SerializeField]
     private float _speed;
@@ -17,18 +17,19 @@ public class Thrower : MonoBehaviour {
     {
         _controller = _gameController.GetComponent<GameController>();
 
-        _arrivalPos = _controller.MousePos();
+        _arrivalPos = _controller._aaa;
+        Debug.Log(_controller._aaa);
     }
 
 
     void Update()
     {
-        transform.position = Vector2.MoveTowards(transform.position, _arrivalPos, _speed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, _arrivalPos, _speed * Time.deltaTime);
 
-        if (_arrivalPos.y <= transform.position.y)
+        /*if (_arrivalPos.y <= transform.position.y)
         {
             Destroy(gameObject);
-        }
+        }*/
     }
 
    
