@@ -24,7 +24,7 @@ public class FlickScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        
+
         // フリック
         if (Input.GetButtonDown("Fire1"))
         {
@@ -54,7 +54,7 @@ public class FlickScript : MonoBehaviour {
         }
     }
 
-    private void GetDirection()
+    public void GetDirection()
     {
         var _directionX = _touchEndPos.x - _touchStartPos.x;
         var _directionY = _touchEndPos.y - _touchStartPos.y;
