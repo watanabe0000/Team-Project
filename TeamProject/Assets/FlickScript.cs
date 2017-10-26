@@ -8,18 +8,16 @@ public class FlickScript : MonoBehaviour {
     private Vector2 _touchEndPos;
 
     [SerializeField]
-    private float _minFlickPower;
+    private float _minFlickDistance;
 
     [SerializeField]
     private GameObject _camera;
     [SerializeField]
     private float _cameraRotateSpeed;
 
-    private int Direction;
-
     // Use this for initialization
     void Start () {
-        Direction = 0;
+        _camera.transform.position = new Vector3(0, 0, -1000);
 	}
 	
 	// Update is called once per frame
@@ -35,46 +33,40 @@ public class FlickScript : MonoBehaviour {
         {
             _touchEndPos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
 
-            GetDirection();
-        }
+            var direction = GetDirection(_touchStartPos, _touchEndPos);
 
-        if (Direction == 1)
-        {
-            var value = _cameraRotateSpeed * Time.deltaTime;
-            _camera.transform.Rotate(0, 0, value, Space.World);
-        }
-        else if (Direction == 2)
-        {
-            var value = _cameraRotateSpeed * Time.deltaTime;
-            _camera.transform.Rotate(0, 0, -value, Space.World);
-        }
-        else
-        {
-            _camera.transform.localRotation = Quaternion.identity;
+            if (direction == 0)
+            {
+                _camera.transform.Translate(-300, 0, 0, Space.World);
+            }
+            else if (direction == 1)
+            {
+                _camera.transform.Translate(300, 0, 0, Space.World);
+            }
+
+            if (_camera.transform.position.x < 0) _camera.transform.Translate(1200, 0, 0, Space.World);
+            if (_camera.transform.position.x > 900) _camera.transform.Translate(-1200, 0, 0, Space.World);
         }
     }
 
-    public void GetDirection()
+    public short GetDirection(Vector2 __startPos, Vector2 __endPos)
     {
-        var _directionX = _touchEndPos.x - _touchStartPos.x;
-        var _directionY = _touchEndPos.y - _touchStartPos.y;
+        var diff_X = __endPos.x - __startPos.x;
+        var diff_Y = __endPos.y - __startPos.y;
 
-        if (Mathf.Abs(_directionY) < Mathf.Abs(_directionX)){
-            if (_minFlickPower < _directionX)
+        if (Mathf.Abs(diff_Y) < Mathf.Abs(diff_X)){
+            if (diff_X > _minFlickDistance)
             {
-                Direction = 1;
                 Debug.Log("Left");
+                return 0;
             }
-            else if (-_minFlickPower > _directionX)
+            else if (diff_X < -_minFlickDistance)
             {
-                Direction = 2;
                 Debug.Log("Right");
+                return 1;
             }
-        }
-        else
-        {
-            Debug.Log("Touch");
         }
 
+        return -1;
     }
 }
