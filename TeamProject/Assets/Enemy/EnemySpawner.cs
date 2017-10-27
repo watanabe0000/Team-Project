@@ -41,14 +41,14 @@ public class EnemySpawner : MonoBehaviour {
         switch (_direction)
         {
             default:
-            case Dir.NORTH: offset_x = -2.5f; break;
-            case Dir.EAST: offset_x = 4; break;
-            case Dir.SOUTH: offset_x = 10.5f; break;
-            case Dir.WEST: offset_x = 17; break;
+            case Dir.NORTH: offset_x = -100f; break;
+            case Dir.EAST: offset_x = 200f; break;
+            case Dir.SOUTH: offset_x = 500f; break;
+            case Dir.WEST: offset_x = 800f; break;
         }
 
         var obj = Instantiate(_obj, _obj.transform.position, _obj.transform.rotation);
-        obj.transform.position = new Vector2(Random.value * 5 + offset_x, offset_y);
+        obj.transform.position = new Vector2(Random.value * 200 + offset_x, offset_y);
         //obj.transform.RotateAround(Vector3.zero, new Vector3(0, 0, 1), -degree);
     }
 
