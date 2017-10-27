@@ -33,7 +33,7 @@ public class Chara_Button : MonoBehaviour {
     private Text Chapter_Text;
   
     //タッチした時の音
-    public GameObject pick_soundPrefab;
+    //public GameObject pick_soundPrefab;
 
     
     public static int chara_select = 0;
@@ -64,8 +64,8 @@ public class Chara_Button : MonoBehaviour {
         Chara_Text.enabled = false;
 
         //SE再生
-        GameObject pick_sound = Instantiate(pick_soundPrefab,
-                                transform.position, Quaternion.identity);
+        //GameObject pick_sound = Instantiate(pick_soundPrefab,
+        //                        transform.position, Quaternion.identity);
 
         chara_select = 1;
 
@@ -79,8 +79,8 @@ public class Chara_Button : MonoBehaviour {
        Left.enabled = false;
         Chara_Text.enabled = false;
 
-        GameObject pick_sound = Instantiate(pick_soundPrefab, 
-                                transform.position, Quaternion.identity);
+        //GameObject pick_sound = Instantiate(pick_soundPrefab, 
+        //                        transform.position, Quaternion.identity);
 
         chara_select = 2;
 
@@ -105,8 +105,8 @@ public class Chara_Button : MonoBehaviour {
 
         chapter_select = 1;
 
-        GameObject pick_sound = Instantiate(pick_soundPrefab,
-                                transform.position, Quaternion.identity);
+        //GameObject pick_sound = Instantiate(pick_soundPrefab,
+        //                        transform.position, Quaternion.identity);
     }
 
     public void two()
@@ -122,8 +122,8 @@ public class Chara_Button : MonoBehaviour {
 
         chapter_select = 2;
 
-        GameObject pick_sound = Instantiate(pick_soundPrefab, 
-                                transform.position, Quaternion.identity);
+        //GameObject pick_sound = Instantiate(pick_soundPrefab, 
+        //                        transform.position, Quaternion.identity);
     }
     public void three()
     {
@@ -138,8 +138,8 @@ public class Chara_Button : MonoBehaviour {
 
         chapter_select = 3;
 
-        GameObject pick_sound = Instantiate(pick_soundPrefab,
-                                transform.position, Quaternion.identity);
+        //GameObject pick_sound = Instantiate(pick_soundPrefab,
+        //                        transform.position, Quaternion.identity);
 
     }
 
